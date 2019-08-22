@@ -23,15 +23,6 @@ const UpdateForm = props => {
             .catch(err => console.log(err.response))
     }, [props.match.params.id]);
 
-    // useEffect(() => {
-    //     const id = props.match.params.id;
-    //     const itemInArr = props.items.find(item => {
-    //         console.log(item.id, id);
-    //         return `${item.id}` === id;
-    //     });
-    //     if (itemInArr) setItem(itemInArr);
-    // }, [props.items, props.match.params.id]);
-
     const changeHandler = event => {
         setMovie({ ...movie, [event.target.name]: event.target.value })
 
@@ -39,28 +30,20 @@ const UpdateForm = props => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios.put(`https://localhost:3333/movies/${movie.id}`, movie)
+        const id = props.match.params.id;
+        axios.put(`http://localhost:5000/api/movies/${movie.id}`, movie)
             .then(res => {
                 console.log(res);
                 // 1 - edit the movie (PUT)
                 // 2 - update movielist with new movie
-                props.setMovies([...props.movies, res.data])
+                    props.setMovies(props.movies.map(movie => movie.id != id ? movie : res.data))
                 // 3 - reset form to blank state
                 setMovie(initialMovie)
                 // 4 - reroute to movie list
                 props.history.push('/')
             })
-            .catch(err => console.log(err.response));
+            // .catch(err => console.log(err.response));
     };
-        // axios
-        //     .put(`http://localhost:3333/items/${item.id}`, item)
-        //     .then(res => {
-        //         console.log(res);
-        //         setItem(initialItem);
-        //         props.updateItems(res.data);
-        //         props.history.push("/item-list");
-        //     })
-        //     .catch(err => console.log(err.response));
 
 return (
     <div>

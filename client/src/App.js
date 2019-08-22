@@ -14,7 +14,7 @@ const App = () => {
     setSavedList([...savedList, movie]);
   };
 
-  useEffect(() => {
+  const getMovies = () => {
     axios
       .get("http://localhost:5000/api/movies")
       .then(res => {
@@ -22,20 +22,24 @@ const App = () => {
         setMovies(res.data)
       })
       .catch(err => console.log(err.response));
+  }
+
+  useEffect(() => {
+    getMovies();
   }, []);
   console.log(movies)
 
   return (
     <>
       <SavedList list={savedList} />
-      <Route path="/" render={props => (
-        <MovieList {...props} movies={movies} setMovies={setMovies} />
+      <Route exact path="/" render={props => (
+        <MovieList {...props} movies={movies} getMovies={getMovies} />
       )}
       />
       <Route
         path="/movies/:id"
         render={props => {
-          return <Movie {...props} addToSavedList={addToSavedList} />;
+          return <Movie {...props} addToSavedList={addToSavedList} movies={movies} setMovies={setMovies} />;
         }}
       />
       <Route

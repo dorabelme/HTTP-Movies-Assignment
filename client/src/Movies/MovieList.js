@@ -12,7 +12,10 @@ export default class MovieList extends Component {
   //     movies: []
   //   };
   // }
-
+  // componentDidMount() {
+  //   console.log("Hello")
+  //   this.props.getMovies()
+  // }
 
   render() {
     return (

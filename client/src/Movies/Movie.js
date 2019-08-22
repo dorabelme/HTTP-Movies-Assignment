@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
+
+
 export default class Movie extends React.Component {
   constructor(props) {
     super(props);
@@ -8,6 +10,22 @@ export default class Movie extends React.Component {
       movie: null
     };
   }
+
+  deleteMovie = event => {
+    const id = this.props.match.params.id;
+    event.preventDefault();
+    axios
+      .delete(`http://localhost:5000/api/movies/${id}`)
+      .then(res => {
+        // const newArr = props.items.filter(i => i.id !== item.id)
+          // const newArr = [props.items, res.data]
+        console.log(res)
+        const newArr = this.props.movies.filter(movie => movie.id != id)
+        this.props.setMovies(newArr)
+        this.props.history.push('/')
+      })
+        .catch(err => console.log(err.response));
+    };
 
   componentDidMount() {
     this.fetchMovie(this.props.match.params.id);
@@ -46,7 +64,7 @@ export default class Movie extends React.Component {
           <div className="update-button" onClick={() => {this.props.history.push(`/update-movie/${this.state.movie.id}`) }}>
             Update
           </div>
-          <div className="delete-button" onClick={this.saveMovie}>
+          <div className="delete-button" onClick={this.deleteMovie}>
             Delete
           </div>
         </div>
