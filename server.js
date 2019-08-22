@@ -83,6 +83,7 @@ app.put("/api/movies/:id", (req, res) => {
     !req.body.metascore ||
     !req.body.stars
   ) {
+
     res
       .status(422)
       .send("Make sure your request body has all the fields it needs");

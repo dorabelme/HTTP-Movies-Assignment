@@ -53,16 +53,44 @@ body {
   width: 75%;
   margin: 1rem auto;
 }
+
 .save-button {
   position: absolute;
   top: 25px;
-  right: 25px;
+  right: 190px;
   border: 1px solid grey;
   padding: 5px 10px;
   background-color: lightseagreen;
 }
+.update-button {
+    position: absolute;
+    top: 25px;
+    right: 105px;
+    border: 1px solid grey;
+    padding: 5px 10px;
+    background-color: #A9CCE3;
+}
+
+.delete-button {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    border: 1px solid grey;
+    padding: 5px 10px;
+    background-color: #D98880;
+}
+
+.delete-button:hover {
+  background-color: #922B21;
+  color: white;
+}
+.update-button:hover {
+  background-color: #21618C;
+  color: white;
+}
+
 .save-button:hover {
-  background-color: green;
+  background-color: #82E0AA;
   color: white;
 }
 
@@ -74,4 +102,11 @@ body {
 .movie-warning {
   color: red;
   text-align: center;
+}
+
+.button-wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 200px;
 }
